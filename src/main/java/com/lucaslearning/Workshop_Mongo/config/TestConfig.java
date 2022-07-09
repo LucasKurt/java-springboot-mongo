@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.lucaslearning.Workshop_Mongo.dto.AuthorDTO;
 import com.lucaslearning.Workshop_Mongo.entities.Post;
 import com.lucaslearning.Workshop_Mongo.entities.User;
 import com.lucaslearning.Workshop_Mongo.repositories.PostRepository;
@@ -40,8 +41,8 @@ public class TestConfig implements CommandLineRunner {
 		
 		postRepository.deleteAll();
 		
-		Post post1 = new Post(null, sdf.parse("21/03/2018"),"Partiu Viagem", "Vou viajar para São Paulo. Abraços!", maria);
-		Post post2 = new Post(null, sdf.parse("23/03/2018"),"Bom dia", "Acordei feliz hoje!", maria);
+		Post post1 = new Post(null, sdf.parse("21/03/2018"),"Partiu Viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
+		Post post2 = new Post(null, sdf.parse("23/03/2018"),"Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
