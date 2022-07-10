@@ -23,7 +23,7 @@ public class UserService {
 	
 	public User findById(String id) {
 		Optional<User> user = userRepository.findById(id);
-		return user.orElseThrow(() -> new ResourceNotFoundException("User: " + id + " not found"));
+		return user.orElseThrow(() -> new ResourceNotFoundException("User id: " + id + " not found"));
 	}
 	
 	public User insertUser(User user) {
