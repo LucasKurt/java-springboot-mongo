@@ -6,5 +6,4 @@ Projeto desenvolvido durante as aulas do Nelio Alves do curso de [Programação 
 
 - API rest
 - Spring Boot
-- Spring Data
-- Banco de Dados MongoDB
+- Spring Data com banco de dados MongoDB
