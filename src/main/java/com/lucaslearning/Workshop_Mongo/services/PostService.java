@@ -1,6 +1,7 @@
 package com.lucaslearning.Workshop_Mongo.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,9 @@ public class PostService {
 	
 	public Post insertPost(Post post) {
 		Optional<User> user = userRepository.findById(post.getAuthor().getId());
-		user.orElseThrow(() -> new ResourceNotFoundException("Author id: " + user.get().getId() + " not found"));
-		Post resultPost = postRepository.insert(post);
-		user.get().getPosts().add(post);
-		userRepository.save(user.get());
-		return resultPost;
+		user.orElseThrow(() -> new ResourceNotFoundException("Author id: " + post.getAuthor().getId() + " not found"));
+		postRepository.insert(post);
+		return addUserPost(user.get(), post);
 	}
 	
 	public void delete(String id) {
@@ -46,9 +45,19 @@ public class PostService {
 		return postRepository.save(bdPost);
 	}
 	
+	public List<Post> findByTitle(String text) {
+		return postRepository.findByTitleContainingIgnoreCase(text);
+	}
+	
 	private void updatePost(Post bdPost, Post post) {
 		bdPost.setBody(post.getBody());
 		bdPost.setTitle(post.getTitle());
 		bdPost.setDate(new Date(System.currentTimeMillis()));
+	}
+	
+	private Post addUserPost(User user, Post post) {
+		user.getPosts().add(post);
+		userRepository.save(user);
+		return post;
 	}
 }
